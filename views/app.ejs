@@ -9,6 +9,7 @@
     <meta name="author" content="">
     <title>Jumbotron Template for Bootstrap</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/main.css">
   </head>
 
@@ -29,11 +30,18 @@
           <% } %>
         </div>
       </div>
+    </div>
 
-      <%- body -%>
-      
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">          
+          <%- body -%>      
+        </div>
+      </div>
     </div>
 
     <% include ./partials/footer %>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
   </body>
 </html>

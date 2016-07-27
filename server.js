@@ -6,16 +6,28 @@ const ejs = require('ejs');
 const ejsEngine = require('ejs-mate');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-const flash = require('express-flash');
+const Redis = require('ioredis');
+const RedisStore = require('connect-redis')(session);
 const secret = require('./config/secret');
+const passport = require('passport');
+const flash = require('express-flash');
 
+/* Server and DB setup */
 const app = express();
+const redisClient = new Redis(secret.redis);
 
-mongoose.connect(secret.database, function(err) {
+redisClient.on('connect', function(err) {
 	if(err) {
 		console.error(err);
 	}
-	console.log('Connected to database.');
+	console.log('Connected to Redis.');
+});
+
+mongoose.connect(secret.mongo, function(err) {
+	if(err) {
+		console.error(err);
+	}
+	console.log('Connected to MongoDB.');
 });
 
 // Middleware
@@ -27,11 +39,24 @@ app.use(cookieParser());
 app.use(session({
 	resave: true,
 	saveUninitialized: true,
+	store: new RedisStore({ client: redisClient }),
 	secret: secret.secretKey
 }));
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 app.engine('ejs', ejsEngine);
 app.set('view engine', 'ejs');
+
+/* Local variable */
+app.use(function(req, res, next) {
+	res.locals = {
+		isAuthenticated: !!req.user,
+		auth_user: req.user,
+		errors: req.flash('errors')
+	}
+	next();
+});
 
 // Router
 const mainRoutes = require('./routes/main');
