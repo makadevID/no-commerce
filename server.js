@@ -53,7 +53,8 @@ app.use(function(req, res, next) {
 	res.locals = {
 		isAuthenticated: !!req.user,
 		auth_user: req.user,
-		errors: req.flash('errors')
+		error: req.flash('error'),
+		success: req.flash('success')
 	}
 	next();
 });

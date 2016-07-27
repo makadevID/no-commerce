@@ -5,7 +5,7 @@ const passportConf = require('../config/passport');
 
 const router = Router();
 
-/* Login */
+/* Login & Logout */
 router.get('/login', function(req, res) {
 	if(req.user) {
 		return res.redirect('/');
@@ -22,12 +22,17 @@ router.post('/login',
 	})
 );
 
+router.get('/logout', function(req, res) {
+	req.logout();
+	return res.redirect('/');
+});
+
 /* SignUp */
 router.get('/signup', function(req, res) {
 	return res.render('accounts/signup');
 });
 
-router.post('/signup', function(req, res) {
+router.post('/signup', function(req, res, next) {
 	const { email, password, name } = req.body;
 
 	const user = new User();
@@ -37,7 +42,7 @@ router.post('/signup', function(req, res) {
 
 	User.findOne({ email: email }, function(err, exists) {
 		if(exists) {
-			req.flash('errors', 'Email already exists.')
+			req.flash('error', 'Email already exists.')
 			return res.redirect('/signup');
 		}
 
@@ -45,7 +50,13 @@ router.post('/signup', function(req, res) {
 			if(err) {
 				return next(err);
 			}
-			return res.redirect('/');
+			req.logIn(user, function(err) {
+				if(err) {
+					return next(err);
+				}
+				req.flash('success', 'Thank you for registering.');
+				return res.redirect('/');
+			})
 		})
 	});
 });

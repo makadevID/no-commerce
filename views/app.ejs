@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Jumbotron Template for Bootstrap</title>
+    <title>noCommerece</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/main.css">
@@ -16,16 +16,33 @@
   <body>
     <% include ./partials/navbar %>
 
+
     <div class="container">
       <div class="row">
         <!-- Error message -->
         <div class="col-md-6 col-md-offset-3">          
-          <% if(errors.length) { %>
+          <% if(success.length) { %>
+            <div class="alert alert-success alert-dismissable">
+              <button class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <%= success %>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <!-- Error message -->
+        <div class="col-md-6 col-md-offset-3">          
+          <% if(error.length) { %>
             <div class="alert alert-danger alert-dismissable">
               <button class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
-              <%= errors %>
+              <%= error %>
             </div>
           <% } %>
         </div>

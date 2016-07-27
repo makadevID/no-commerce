@@ -23,12 +23,12 @@ passport.use('local-login', new LocalStrategy({
 		}
 
 		if(!user) {
-			return done(err, false, req.flash('errors', 'User not found!'));
+			return done(err, false, req.flash('error', 'User not found!'));
 		}
 	
 		user.comparePassword(password, function(err, isMatch) {
 			if(!isMatch) {
-				return done(err, false, req.flash('errors', `Oops! Password didn't match!`));
+				return done(err, false, req.flash('error', `Oops! Password didn't match!`));
 			}
 			return done(null, user);
 		});
