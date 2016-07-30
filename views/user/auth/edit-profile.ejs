@@ -1,0 +1,26 @@
+<% layout('user/app') -%>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">Edit Profile</h3>
+	</div>
+	<form action="/edit-profile" class="form" method="POST">
+		<div class="panel-body">
+			<div class="form-group">
+				<label for="name">Name: </label>
+				<input type="text" class="form-control" name="name" value="<%= auth_user.profile.name %>">
+			</div>
+			<div class="form-group">
+				<label for="name">Email: </label>
+				<input type="text" class="form-control" name="email" value="<%= auth_user.email %>">
+			</div>
+			<div class="form-group">
+				<label for="name">Address: </label>
+				<textarea name="address" class="form-control"><%= auth_user.profile.address || '' %></textarea>
+			</div>
+			<div class="form-group text-right">
+				<a href="/profile" class="btn btn-default">Cancel</a>
+				<button class="btn btn-primary" type="submit">Update</button>
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,15 +1,15 @@
-<% layout('app') -%>
+<% layout('user/app') -%>
 <h1 class="page-header">Login</h1>
 <form action="/login" method="POST">
 	<div class="form-group">
 		<label for="email">Email: </label>
-		<input type="email" class="form-control" name="email">
+		<input type="email" class="form-control" name="email" autofocus="true">
 	</div>
 	<div class="form-group">
 		<label for="password">Password: </label>
 		<input type="password" class="form-control" name="password">
 	</div>
 	<div class="form-group">
-		<button class="btn btn-success" type="submit">Login</button>
+		<button class="btn btn-primary" type="submit">Login</button>
 	</div>
 </form>

@@ -1,0 +1,23 @@
+<% layout('admin/app') -%>
+<h3 class="page-header">Categories</h3>
+<a href="/nc-admin/categories/create" class="btn btn-primary"><i class="fa fa-plus"></i> New Category</a>
+<hr />
+<table class="table">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Name</th>
+			<th colspan="2">Options</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% for(let i = 0; i < categories.length; i++){ %>
+			<tr>
+				<td><%= i + 1 %></td>
+				<td><%= categories[i].name %></td>
+				<td><a href="/categories/<%= categories[i]._id %>/edit" class="btn btn-success"><i class="fa fa-pencil"></i></a></td>
+				<td><a href="/categories/<%= categories[i]._id %>/delete" class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
+			</tr>
+	<% } %>
+	</tbody>
+</table>

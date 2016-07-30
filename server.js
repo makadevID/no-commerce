@@ -15,6 +15,8 @@ const flash = require('express-flash');
 /* Server and DB setup */
 const app = express();
 const redisClient = new Redis(secret.redis);
+const categorySeeder = require('./database/seeder/category');
+const productSeeder = require('./database/seeder/product');
 
 redisClient.on('connect', function(err) {
 	if(err) {
@@ -27,6 +29,15 @@ mongoose.connect(secret.mongo, function(err) {
 	if(err) {
 		console.error(err);
 	}
+
+	// Seeder
+	categorySeeder();
+
+	// Please run categorySeeder() first then uncomment productSeeder later.
+	// productSeeder('T-shirt');
+	// productSeeder('Pants');
+	// productSeeder('Shoes');
+
 	console.log('Connected to MongoDB.');
 });
 
@@ -40,7 +51,8 @@ app.use(session({
 	resave: true,
 	saveUninitialized: true,
 	store: new RedisStore({ client: redisClient }),
-	secret: secret.secretKey
+	secret: secret.secretKey,
+	cookie: { maxAge: 600000 }
 }));
 app.use(flash());
 app.use(passport.initialize());
@@ -49,21 +61,16 @@ app.engine('ejs', ejsEngine);
 app.set('view engine', 'ejs');
 
 /* Local variable */
-app.use(function(req, res, next) {
-	res.locals = {
-		isAuthenticated: !!req.user,
-		auth_user: req.user,
-		error: req.flash('error'),
-		success: req.flash('success')
-	}
-	next();
-});
+var middlewares = require('./middlewares');
+
+app.use(middlewares.localVariables);
+app.use(middlewares.categories);
 
 // Router
-const mainRoutes = require('./routes/main');
+const adminRoutes = require('./routes/admin');
 const userRoutes = require('./routes/user');
 
-app.use(mainRoutes);
+app.use('/nc-admin', adminRoutes);
 app.use(userRoutes);
 
 app.listen(secret.port, (err) => {

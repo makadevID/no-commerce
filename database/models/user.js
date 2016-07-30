@@ -8,15 +8,15 @@ const UserSchema = new mongoose.Schema({
 	password: String,
 	profile: {
 		name: { type: String, default: '' },
+		address: String,
 		picture: { type: String, default: '' }
 	}, 
-	address: String,
 	history: [{
 		date: Date,
 		paid: { type: Number, default: 0 },
 		//item: { type: Schema.Types.ObjectId, ref: '' }
 	}]
-});
+}, { timestamps: true });
 
 UserSchema.pre('save', function(next) {
 	const user = this;

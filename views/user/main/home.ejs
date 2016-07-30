@@ -1,0 +1,39 @@
+<% layout('user/app') -%>
+
+<main class="products">
+<% for (var i = 0; i < products.length; i++) { %>
+	<div class="product" id="product-<%= products[i]._id %>">
+		<a href="products/<%= products[i].slug %>" title="<%= products[i].name %>">
+			<img class="product-image" src="<%= products[i].image %>" alt="<%= products[i].name %>">
+		</a>
+		<div class="product-meta">
+			<p class="product-name">
+				<a href="products/<%= products[i].slug %>" title="<%= products[i].name %>">
+					<strong><%= products[i].name %></strong>
+				</a>
+			</p>
+			<p class="product-category">
+				<strong>Category: </strong>
+				<a href="/categories/<%= products[i].category.slug %>"><%= products[i].category.name %></a>
+			</p>
+			<p class="product-price">
+				<strong>Price: </strong>
+				<span>$ <%= products[i].price %></span>
+			</p>
+			<hr />
+			<div class="row">
+				<div class="col-xs-6">
+					<div>
+						<button class="btn btn-default"><i class="fa fa-heart"></i> Like!</button>
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="text-right">
+						<button class="btn btn-primary"><i class="fa fa-shopping-bag"></i> Add to Bag</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<% } %>
+</main>

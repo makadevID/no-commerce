@@ -1,6 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const User = require('../models/user');
+const User = require('../database/models/user');
 
 passport.serializeUser(function(user, done) {
 	done(null, user._id);
@@ -12,7 +12,7 @@ passport.deserializeUser(function(id, done) {
 	});
 });
 
-passport.use('local-login', new LocalStrategy({
+passport.use('user', new LocalStrategy({
 	usernameField: 'email',
 	passwordField: 'password',
 	passReqToCallback: true,
@@ -33,12 +33,4 @@ passport.use('local-login', new LocalStrategy({
 			return done(null, user);
 		});
 	})
-}))
-
-exports.isAuthenticated = function(req, res, next) {
-	if(req.isAuthenticated) {
-		return next();
-	}
-
-	return res.redirect('/login');
-}
+}));

@@ -1,0 +1,40 @@
+<aside class="sidepanel" id="sidepanel">
+	<div class="sidebar title">
+		<h1>no<strong>Commerce</strong></h1>
+		<p>Simple yet powerfull e-commerce playground.</p>
+	</div>
+	<div class="sidebar">
+		<form action="">
+			<div class="form-group"><input type="search" name="q" id="search" class="form-control" placeholder="Search..." autocomplete="off"></div>
+		</form>
+	</div>
+	<div class="divider"><i class="fa fa-bars"></i> NAVIGATION</div>
+	<div class="sidebar">
+		<ul class="list-group">
+			<li class="list-group-item"><a href="/">Home</a></li>
+			<li class="list-group-item"><a href="/about">About</a></li>
+			<li class="list-group-item"><a href="/lookbook">Look Book</a></li>
+			<li class="list-group-item"><a href="/blog">Blog</a></li>
+		</ul>
+	</div>
+	<div class="divider"><i class="fa fa-tags"></i> CATEGORIES</div>
+	<div class="sidebar">
+		<ul class="list-group">
+			<% for(let i = 0; i < categories.length; i++ ){ %>
+			<li class="list-group-item"><a href="/categories/<%= categories[i].slug %>"><%= categories[i].name %></a></li>
+			<% } %>
+		</ul>
+	</div>
+	<% if(isAuthenticated) { %>
+	<div class="divider"><i class="fa fa-user"></i> HI, <%= auth_user.profile.name %></div>
+	<div class="sidebar">
+		<ul class="list-group">
+			<li class="list-group-item"><a href="/profile">My Account</a></li>
+			<li class="list-group-item"><a href="#">Promo Code</a></li>
+			<li class="list-group-item"><a href="#">Other Menu</a></li>
+			<li class="list-group-item"><a href="/logout">Logout</a></li>
+		</ul>
+	</div>
+	<% } %>
+</aside>
+<div id="sidepanel-overlay"></div>

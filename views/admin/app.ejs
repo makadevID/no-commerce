@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>noCommerece</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+
+  <body>
+    <% include ./partials/navbar %>
+    
+    <div class="container">
+      <div class="row">
+        <!-- Error message -->
+        <div class="col-md-12">          
+          <% if(success.length) { %>
+            <div class="alert alert-success alert-dismissable">
+              <button class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <%= success %>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <!-- Error message -->
+        <div class="col-md-12">          
+          <% if(error.length) { %>
+            <div class="alert alert-danger alert-dismissable">
+              <button class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <%= error %>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-sm-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">Hi, <%= auth_user.profile.name %></h4>
+            </div>
+            <ul class="list-group">
+              <li class="list-group-item"><a href="/nc-admin"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+              <li class="list-group-item"><a href="/nc-admin/categories"><i class="fa fa-tags"></i> Category</a></li>
+              <li class="list-group-item"><a href="/nc-admin/products"><i class="fa fa-shopping-bag"></i> Product</a></li>
+              <li class="list-group-item"><a href="/nc-admin/users"><i class="fa fa-users"></i> User</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-8 col-sm-7 col-md-offset-1 col-sm-offset-1"><%- body -%> </div>
+      </div>      
+    </div>
+
+    <% if(isAuthenticated) { %>
+      <% include ./partials/footer %>
+    <% } %>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+  </body>
+</html>

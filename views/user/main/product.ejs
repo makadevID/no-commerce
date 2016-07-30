@@ -1,0 +1,37 @@
+<% layout('user/app') -%>
+
+<main class="products">
+	<div class="product" id="product-<%= product._id %>">
+		<a href="products/<%= product.slug %>" title="<%= product.name %>">
+			<img class="product-image" src="<%= product.image %>" alt="<%= product.name %>">
+		</a>
+		<div class="product-meta">
+			<p class="product-name">
+				<a href="products/<%= product.slug %>" title="<%= product.name %>">
+					<strong><%= product.name %></strong>
+				</a>
+			</p>
+			<p class="product-category">
+				<strong>Category: </strong>
+				<a href="/categories/<%= product.category.slug %>"><%= product.category.name %></a>
+			</p>
+			<p class="product-price">
+				<strong>Price: </strong>
+				<span>$ <%= product.price %></span>
+			</p>
+			<hr />
+			<div class="row">
+				<div class="col-xs-6">
+					<div>
+						<button class="btn btn-default"><i class="fa fa-heart"></i> Like!</button>
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="text-right">
+						<button class="btn btn-primary"><i class="fa fa-shopping-bag"></i> Add to Bag</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>

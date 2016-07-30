@@ -1,0 +1,12 @@
+<% layout('user/app') -%>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">Profile</h3>
+	</div>
+	<ul class="list-group">
+		<li class="list-group-item"><strong>Name: </strong> <%= auth_user.profile.name %></li>
+		<li class="list-group-item"><strong>Email: </strong> <%= auth_user.email %></li>
+		<li class="list-group-item"><strong>Address: </strong> <%= auth_user.profile.address || '-' %></li>
+	</ul>
+	<div class="panel-body text-right"><a href="/edit-profile" class="btn btn-default">Edit Profile</a></div>
+</div>
