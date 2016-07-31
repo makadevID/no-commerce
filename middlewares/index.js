@@ -1,10 +1,13 @@
 const Category = require('../database/models/category');
 
+exports.notFound = function(req, res) {
+	return res.status(404).send('404');
+}
+
 exports.isAuthenticated = function(req, res, next) {
 	if(req.user) {
 		return next();
 	}
-
 	return res.redirect('/login');
 }
 
@@ -15,7 +18,6 @@ exports.localVariables = function(req, res, next) {
 		error: req.flash('error'),
 		success: req.flash('success')
 	}
-
 	next();
 }
 

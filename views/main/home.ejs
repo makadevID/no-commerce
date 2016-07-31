@@ -1,14 +1,14 @@
-<% layout('user/app') -%>
+<% layout('app') -%>
 
 <main class="products">
 <% for (var i = 0; i < products.length; i++) { %>
 	<div class="product" id="product-<%= products[i]._id %>">
-		<a href="products/<%= products[i].slug %>" title="<%= products[i].name %>">
+		<a href="/products/<%= products[i].slug %>" title="<%= products[i].name %>">
 			<img class="product-image" src="<%= products[i].image %>" alt="<%= products[i].name %>">
 		</a>
 		<div class="product-meta">
 			<p class="product-name">
-				<a href="products/<%= products[i].slug %>" title="<%= products[i].name %>">
+				<a href="/products/<%= products[i].slug %>" title="<%= products[i].name %>">
 					<strong><%= products[i].name %></strong>
 				</a>
 			</p>
@@ -24,7 +24,7 @@
 			<div class="row">
 				<div class="col-xs-6">
 					<div>
-						<button class="btn btn-default"><i class="fa fa-heart"></i> Like!</button>
+						<button class="btn btn-default"><i class="fa fa-heart"></i> Add to Wishlist</button>
 					</div>
 				</div>
 				<div class="col-xs-6">
@@ -37,3 +37,23 @@
 	</div>
 <% } %>
 </main>
+
+<nav aria-label="Page navigation" class="text-center">
+  <ul class="pagination">
+		<% for (var i = 1; i <= pages; i++) { %>
+
+			<% if(parseInt(page) === i || (page === undefined && i === 1)) { %>
+				<li class="active"><span><%= i %></span></li>
+			<% } else { %>
+
+				<% if(1 === i) { %>
+					<li><a href="/"><%= i %></a></li>
+				<% } else { %>
+		    	<li><a href="/page/<%= i %>"><%= i %></a></li>
+		    <% } %>  
+
+    	<% } %>   
+
+    <% } %>
+  </ul>
+</nav>

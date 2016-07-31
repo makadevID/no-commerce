@@ -1,6 +1,6 @@
 const async = require('async');
-const Category = require('../../database/models/category');
-const Product = require('../../database/models/product');
+const Category = require('../database/models/category');
+const Product = require('../database/models/product');
 
 exports.getByCategory = function(req, res, next) {
 	const { slug } = req.params;
@@ -23,7 +23,7 @@ exports.getByCategory = function(req, res, next) {
 				if(err) {
 					return next(err);
 				}
-				return res.render('user/main/home', { products });
+				return res.render('main/home', { products });
 			});
 	}
 	async.waterfall([category, products]);
@@ -38,6 +38,31 @@ exports.getSingleProduct = function(req, res, next) {
 			if(err) {
 				return next(err);
 			}
-			return res.render('user/main/product', { product });
+			return res.render('main/product', { product });
 		});
+}
+
+exports.postSearch = function(req, res) {
+	return res.redirect(`/search?q=${req.body.q}`);
+}
+
+exports.getSearch = function(req, res, next) {
+	const { q } = req.query;
+
+	if(q) {
+		Product.esSearch({
+			query_string: {
+				query: q
+			} 
+		})
+		.then(function(results) {
+			const { hits } = results.hits;
+			return res.render('main/search-results', { q, hits });
+		})
+		.catch(function(err) {
+			return next(err);
+		});
+	} else {
+		return res.render('main/search');
+	}
 }

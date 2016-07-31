@@ -1,0 +1,54 @@
+<% layout('app') -%>
+
+<div class="panel panel-default">
+	<ul class="list-group">
+		<li class="list-group-item">
+			<form action="/search" method="POST">
+				<div class="form-group"><input type="search" name="q" id="search" class="form-control" placeholder="Search..." autocomplete="off"></div>
+			</form>
+		</li>
+		<li class="list-group-item">Result for <strong><%= q %></strong>. Total : <%= hits.length %></li>
+	</ul>
+</div>
+
+<main class="products">
+<% if(hits.length > 0) { %>
+	<% for (var i = 0; i < hits.length; i++) { %>
+		<div class="product" id="product-<%= hits[i]._id %>">
+			<a href="/products/<%= hits[i]._source.slug %>" title="<%= hits[i]._source.name %>">
+				<img class="product-image" src="<%= hits[i]._source.image %>" alt="<%= hits[i]._source.name %>">
+			</a>
+			<div class="product-meta">
+				<p class="product-name">
+					<a href="/products/<%= hits[i]._source.slug %>" title="<%= hits[i]._source.name %>">
+						<strong><%= hits[i]._source.name %></strong>
+					</a>
+				</p>
+				<p class="product-category">
+					<strong>Category: </strong>
+					<a href="/categories/<%= hits[i]._source.category.slug %>"><%= hits[i]._source.category.name %></a>
+				</p>
+				<p class="product-price">
+					<strong>Price: </strong>
+					<span>$ <%= hits[i]._source.price %></span>
+				</p>
+				<hr />
+				<div class="row">
+					<div class="col-xs-6">
+						<div>
+							<button class="btn btn-default"><i class="fa fa-heart"></i> Add to Wishlist</button>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="text-right">
+							<button class="btn btn-primary"><i class="fa fa-shopping-bag"></i> Add to Bag</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% } %>
+<% } else { %>
+	<h3 class="text-center no-search-results">Please try another keywords. 😔</h3>
+<% } %>
+</main>

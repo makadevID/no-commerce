@@ -15,6 +15,9 @@ const flash = require('express-flash');
 /* Server and DB setup */
 const app = express();
 const redisClient = new Redis(secret.redis);
+
+mongoose.Promise = require('bluebird');
+
 const categorySeeder = require('./database/seeder/category');
 const productSeeder = require('./database/seeder/product');
 
@@ -37,6 +40,11 @@ mongoose.connect(secret.mongo, function(err) {
 	// productSeeder('T-shirt');
 	// productSeeder('Pants');
 	// productSeeder('Shoes');
+	// productSeeder('Accessories');
+	// productSeeder('Watch');
+	// productSeeder('Long Pants');
+	// productSeeder('Pants');
+	// productSeeder('Bag');
 
 	console.log('Connected to MongoDB.');
 });
@@ -52,7 +60,7 @@ app.use(session({
 	saveUninitialized: true,
 	store: new RedisStore({ client: redisClient }),
 	secret: secret.secretKey,
-	cookie: { maxAge: 600000 }
+	cookie: { maxAge: null }
 }));
 app.use(flash());
 app.use(passport.initialize());
@@ -67,11 +75,10 @@ app.use(middlewares.localVariables);
 app.use(middlewares.categories);
 
 // Router
-const adminRoutes = require('./routes/admin');
 const userRoutes = require('./routes/user');
 
-app.use('/nc-admin', adminRoutes);
 app.use(userRoutes);
+app.use('*', middlewares.notFound);
 
 app.listen(secret.port, (err) => {
 	if(err) {

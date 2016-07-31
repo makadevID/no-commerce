@@ -8,4 +8,5 @@ const CategorySchema = new Schema({
 	slug: { type: String, unique: true, lowercase: true }
 }, { timestamps: true });
 
+exports.CategorySchema = CategorySchema;
 module.exports = mongoose.model('Category', CategorySchema);

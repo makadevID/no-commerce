@@ -1,13 +1,13 @@
 const passport = require('passport');
-const User = require('../../database/models/user');
-const passportConf = require('../../config/passport');
+const User = require('../database/models/user');
+const passportConf = require('../config/passport');
 
 exports.getLogin = function(req, res) {
 	if(req.user) {
 		return res.redirect('/');
 	}
 
-	return res.render('user/auth/login');
+	return res.render('auth/login');
 }
 
 exports.postLogin = passport.authenticate(
@@ -24,7 +24,7 @@ exports.getLogout = function(req, res) {
 }
 
 exports.getSignup = function(req, res) {
-	return res.render('user/auth/signup');
+	return res.render('auth/signup');
 }
 
 exports.postSignup = function(req, res, next) {
@@ -58,11 +58,11 @@ exports.postSignup = function(req, res, next) {
 }
 
 exports.getProfile = function(req, res) {
-	return res.render('user/auth/profile');
+	return res.render('auth/profile');
 }
 
 exports.getEditProfile = function(req, res) {
-	return res.render('user/auth/edit-profile');
+	return res.render('auth/edit-profile');
 }
 
 exports.postEditProfile = function(req, res, next) {

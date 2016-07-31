@@ -3,11 +3,14 @@
 		<h1>no<strong>Commerce</strong></h1>
 		<p>Simple yet powerfull e-commerce playground.</p>
 	</div>
-	<div class="sidebar">
-		<form action="">
-			<div class="form-group"><input type="search" name="q" id="search" class="form-control" placeholder="Search..." autocomplete="off"></div>
-		</form>
+  <% if(!isAuthenticated) { %>
+	<div class="sidebar sign-btn-group">	
+	  <div class="row">
+	  	<div class="col-xs-6"><a class="btn btn-block btn-default" href="/signup">Register</a></div>
+	  	<div class="col-xs-6"><a class="btn btn-block btn-primary" href="/login">Login</a></div>
+	  </div>
 	</div>
+  <% } %>
 	<div class="divider"><i class="fa fa-bars"></i> NAVIGATION</div>
 	<div class="sidebar">
 		<ul class="list-group">

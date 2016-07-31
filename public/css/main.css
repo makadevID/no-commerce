@@ -23,8 +23,19 @@ a:focus, a:hover {
 }
 
 .btn,
-.form-control {
+.form-control,
+.panel {
 	border-radius: 2px;
+}
+
+.panel .panel-heading {
+	background-color: #FFF;
+	padding: 2rem 1rem;
+}
+
+.panel .panel-title {
+	font-size: 1rem;
+	text-transform: uppercase;
 }
 
 .btn-primary {
@@ -97,6 +108,9 @@ ul.nav > li {
 	.navbar-left {
 		float: left;
 	}
+	.navbar-default .navbar-nav > li > a {
+		padding: 10px;
+	}
 }
 
 .page-header {
@@ -139,6 +153,10 @@ ul.nav > li {
 	opacity: .9;
 	visibility: visible;
 	cursor: pointer;
+}
+
+.sign-btn-group {
+	margin-bottom: 1rem;
 }
 
 .sidepanel .divider {
@@ -211,4 +229,39 @@ ul.nav > li {
 .products .product-meta .product-category,
 .products .product-meta .product-price {
 	font-size: .875rem;
+}
+
+.no-search-results {
+	color: #848484;
+}
+
+.pagination {
+	border-radius: 2px;
+}
+
+.pagination > li:first-child > a,
+.pagination > li:first-child > span {
+	border-top-left-radius: 2px;
+	border-bottom-left-radius: 2px;
+}
+
+.pagination > li:last-child > a,
+.pagination > li:last-child > span {
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+}
+
+.pagination > li > a,
+.pagination > li > span {
+	color: #181818;
+}
+
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover, 
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+	background-color: #ef5f96;
+	border-color: #ef5f96;
 }

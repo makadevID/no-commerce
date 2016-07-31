@@ -3,9 +3,9 @@ const { isAuthenticated } = require('../middlewares');
 const router = Router();
 
 /* Controllers */
-const AuthController = require('../controller/user/auth');
-const HomeController = require('../controller/user/home');
-const ProductController = require('../controller/user/product');
+const AuthController = require('../controller/auth');
+const HomeController = require('../controller/home');
+const ProductController = require('../controller/product');
 
 /* Auth */
 router.get('/login', AuthController.getLogin);
@@ -20,8 +20,11 @@ router.post('/edit-profile', isAuthenticated, AuthController.postEditProfile);
 /* Home */
 router.get('/', HomeController.getHome);
 router.get('/about', HomeController.getAbout);
+router.get('/page/:page', HomeController.getHome);
 
 /* Product */
+router.get('/search', ProductController.getSearch);
+router.post('/search', ProductController.postSearch);
 router.get('/categories/:slug', ProductController.getByCategory);
 router.get('/products/:slug', ProductController.getSingleProduct);
 

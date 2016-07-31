@@ -1,12 +1,8 @@
 (function($) {
 	'use strict';
 
-	$('#trigger-panel, #search-btn').click(function(e) {
+	$('#trigger-panel').click(function(e) {
 		e.preventDefault();
-		if(this.id === 'search-btn') {
-			$('.sidepanel').find('input').focus();
-		}
-		
 		$('body').toggleClass('sidepanel-show');
 	});
 

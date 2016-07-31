@@ -1,12 +1,21 @@
 {
   "name": "learn-node",
   "version": "1.0.0",
-  "description": "",
+  "description": "E-commerce playground built on top of NodeJS",
   "main": "index.js",
+  "repository": "https://github.com/alfrcr/no-commerce.git",
   "scripts": {
     "start": "nodemon server.js"
   },
-  "keywords": [],
+  "keywords": [
+    "nodejs",
+    "expressjs",
+    "mongoose",
+    "redis",
+    "elasticsearch",
+    "passport",
+    "async"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -22,6 +31,7 @@
     "faker": "^3.1.0",
     "ioredis": "^2.2.0",
     "mongoose": "^4.5.6",
+    "mongoose-elasticsearch-xp": "^2.3.0",
     "morgan": "^1.7.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",

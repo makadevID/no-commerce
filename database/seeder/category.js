@@ -13,7 +13,7 @@ module.exports = function(category) {
 			{ name: 'Long Pants', slug: 'long-pants' },
 			{ name: 'Shoes', slug: 'shoes' },
 			{ name: 'Bag', slug: 'bag' },
-			{ name: 'Accesories', slug: 'accesories' },
+			{ name: 'Accessories', slug: 'accessories' },
 			{ name: 'Watch', slug: 'watch' },
 		];
 
