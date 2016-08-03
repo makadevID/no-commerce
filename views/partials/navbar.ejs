@@ -9,8 +9,20 @@
           <li><a href="/" class="brand">no<strong>Commerce</strong></a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="/wishlist"><i class="fa fa-heart"></i></a></li>
-          <li><a href="/cart"><i class="fa fa-shopping-bag"></i></a></li>
+          <li>
+            <a href="/wishlist"><i class="fa fa-heart"></i>
+            <% if(wishlist_count > 0) { %>
+                <span class="badge"><%= wishlist_count %></span>
+              <% } %>
+            </a>
+          </li>
+          <li>
+            <a href="/cart"><i class="fa fa-shopping-bag"></i>
+              <% if(cart_count > 0) { %>
+                <span class="badge"><%= cart_count %></span>
+              <% } %>
+            </a>
+          </li>
           <li><a href="/search"><i class="fa fa-search"></i></a></li>
         </ul>
       </div>

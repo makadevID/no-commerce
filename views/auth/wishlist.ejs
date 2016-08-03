@@ -1,0 +1,43 @@
+<% layout('app') -%>
+
+<main class="products">
+<% for (var i = 0; i < wishlist.length; i++) { %>
+	<div class="product" id="product-<%= wishlist[i]._id %>">
+		<a href="/products/<%= wishlist[i].slug %>" title="<%= wishlist[i].name %>">
+			<img class="product-image" src="<%= wishlist[i].image %>" alt="<%= wishlist[i].name %>">
+		</a>
+		<div class="product-meta">
+			<p class="product-name">
+				<a href="/products/<%= wishlist[i].slug %>" title="<%= wishlist[i].name %>">
+					<strong><%= wishlist[i].name %></strong>
+				</a>
+			</p>
+			<p class="product-category">
+				<strong>Category: </strong>
+				<a href="/categories/<%= wishlist[i].category.slug %>"><%= wishlist[i].category.name %></a>
+			</p>
+			<p class="product-price">
+				<strong>Price: </strong>
+				<span>$ <%= wishlist[i].price %></span>
+			</p>
+			<hr />
+			<div class="row">
+				<div class="col-xs-6">
+					<div>
+						<form action="/wishlist/<%= wishlist[i]._id %>/remove" method="POST">
+							<button class="btn btn-default" type="submit"><i class="fa fa-times"></i> Remove from Wishlist</button>
+						</form>
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="text-right">
+						<form action="/cart/<%= wishlist[i]._id %>" class="form-inline" method="POST">
+							<button class="btn btn-primary" type="submit"><i class="fa fa-shopping-bag"></i> Add to Bag</button>
+						</form>		
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<% } %>
+</main>

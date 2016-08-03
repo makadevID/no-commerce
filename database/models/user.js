@@ -14,8 +14,10 @@ const UserSchema = new mongoose.Schema({
 	history: [{
 		date: Date,
 		paid: { type: Number, default: 0 },
-		//item: { type: Schema.Types.ObjectId, ref: '' }
-	}]
+		item: { type: Schema.Types.ObjectId, ref: 'Product' }
+	}],
+	wishlist: [{ type: Schema.Types.ObjectId, ref: 'Product', unique: true }],
+	recent_search: [{ type: String, unique: true }]
 }, { timestamps: true });
 
 UserSchema.pre('save', function(next) {

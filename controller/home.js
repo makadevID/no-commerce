@@ -16,7 +16,6 @@ exports.getHome = function(req, res, next) {
 			}
 			Product.count()
 				.exec(function(err, count) {
-					console.log(page);
 					return res.render('main/home', {
 						products,
 						page,
@@ -28,4 +27,12 @@ exports.getHome = function(req, res, next) {
 
 exports.getAbout = function(req, res) {
 	return res.render('main/about');
+}
+
+exports.getBlog = function(req, res) {
+	return res.render('main/blogs');
+}
+
+exports.getLookbook = function(req, res) {
+	return res.render('main/lookbook');
 }

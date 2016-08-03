@@ -60,7 +60,7 @@ app.use(session({
 	saveUninitialized: true,
 	store: new RedisStore({ client: redisClient }),
 	secret: secret.secretKey,
-	cookie: { maxAge: null }
+	cookie: { maxAge: 3 * 60 * 60 * 1000 } // 3 hours
 }));
 app.use(flash());
 app.use(passport.initialize());
@@ -73,11 +73,12 @@ var middlewares = require('./middlewares');
 
 app.use(middlewares.localVariables);
 app.use(middlewares.categories);
+app.use(middlewares.badge);
 
 // Router
-const userRoutes = require('./routes/user');
+const routes = require('./routes');
 
-app.use(userRoutes);
+app.use(routes);
 app.use('*', middlewares.notFound);
 
 app.listen(secret.port, (err) => {

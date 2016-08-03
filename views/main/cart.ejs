@@ -1,0 +1,47 @@
+<% layout('app') -%>
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">Cart</h3>
+	</div>
+	<ul class="list-group">
+		<li class="list-group-item">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Name</th>
+						<th>Qty</th>
+						<th colspan="2">Price</th>
+					</tr>
+				</thead>
+				<tbody>
+						<% for(var i = 0; i < carts.items.length; i++) { %>
+							<tr>
+								<td><%= i + 1 %></td>
+								<td><%= carts.items[i].name %></td>
+								<td><%= carts.items[i].quantity %></td>
+								<td><%= carts.items[i].price * carts.items[i].quantity %></td>
+								<td>
+									<form action="/cart/<%= carts.items[i]._id %>/remove" method="POST">
+										<button class="btn btn-default btn-sm" type="submit"><i class="fa fa-close"></i></button></td>
+									</form>
+							</tr>
+						<% } %>
+					<tr>
+						<td colspan="3"></td>
+						<td><strong>Total</strong></td>
+						<td><strong>$ <%= carts.total %></strong></td>
+					</tr>
+				</tbody>
+			</table>
+		</li>
+		<li class="list-group-item text-right">
+			<% if(isAuthenticated) { %>
+				<a class="btn btn-primary btn-block" href="/checkout">Checkout</a>
+			<% } else { %>
+				<a class="btn btn-primary btn-block" href="/login?redirect=checkout">Checkout</a>
+			<% } %>
+		</li>
+	</ul>
+</div>

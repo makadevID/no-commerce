@@ -1,0 +1,28 @@
+<% layout('app') -%>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">Transaction History</h3>
+	</div>
+	<div class="panel-body">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Item</th>
+					<th>Date</th>
+					<th>Paid</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% for (var i = 0; i < history.length; i++) { %>
+				<tr>
+					<td><%= i + 1 %></td>
+					<td><%= history[i].item.name %></td>
+					<td><%= history[i].date %></td>
+					<td>$ <%= history[i].paid %></td>
+				</tr>
+				<% } %>
+			</tbody>
+		</table>
+	</div>
+</div>

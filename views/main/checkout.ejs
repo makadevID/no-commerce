@@ -1,0 +1,117 @@
+<% layout('app') -%>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title">Shipping</div>
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <ul class="list-group">
+        <li class="list-group-item"><strong>Recipient :</strong> <%= auth_user.profile.name %></li>
+        <li class="list-group-item"><strong>Address :</strong> <%= auth_user.profile.address || 'Please update your address.' %></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Checkout</h3>
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Qty</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(var i = 0; i < carts.items.length; i++) { %>
+            <input type="hidden" name="items[<%= i %>]" value="<%= carts.items[i]._id %>">
+            <input type="hidden" name="items[<%= i %>]" value="<%= carts.items[i].quantity %>">
+            <input type="hidden" name="items[<%= i %>]" value="<%= carts.items[i].price %>">
+            <tr>
+              <td><%= i + 1 %></td>
+              <td><%= carts.items[i].name %></td>
+              <td><%= carts.items[i].quantity %></td>
+              <td><%= carts.items[i].price %></td>
+            </tr>
+          <% } %>
+          <tr>
+            <td colspan="2"></td>
+            <td><strong>Total</strong></td>
+            <td><strong>$ <%= carts.total %></strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </li>
+  </ul>
+</div>
+
+<% if(isAuthenticated && auth_user.profile.address) { %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Payment Details</h3>
+  </div>
+  <div class="panel-body">
+  <form role="form" id="payment-form" method="POST" action="/payment">
+    <input type="hidden" name="charges" value="<%= carts.total %>">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="form-group">
+          <label for="cardNumber">CARD NUMBER</label>
+          <div class="input-group">
+            <input type="text" class="form-control" name="cardNumber" placeholder="Valid Card Number" required autofocus data-stripe="number" />
+            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+          </div>
+        </div>                            
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-7 col-md-7">
+        <div class="form-group">
+          <label for="cardExpiry"><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
+          <div class="row">
+            <div class="col-xs-6 col-lg-6">
+              <input type="text" class="form-control" name="expMonth" placeholder="MM" required data-stripe="exp_month" />
+            </div>
+            <div class="col-xs-6 col-lg-6">
+              <input type="text" class="form-control" name="expYear" placeholder="YY" required data-stripe="exp_year" />
+          </div>      
+          </div> 
+        </div>
+      </div>
+      <div class="col-xs-5 col-md-5 pull-right">
+        <div class="form-group">
+          <label for="cardCVC">CV CODE</label>
+          <input type="password" class="form-control" name="cvCode" placeholder="CV" required data-stripe="cvc" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="form-group">
+          <label for="accept">WE ACCEPT</label>
+          <img class="img-responsive" src="http://i76.imgup.net/accepted_c22e0.png">
+        </div>
+      </div>                        
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <button class="submit btn btn-success btn-lg btn-block" type="submit">Order $ <%= carts.total %></button>
+      </div>
+    </div>
+    <div class="row" style="display:none;">
+      <div class="col-xs-12">
+        <p class="payment-errors"></p>
+      </div>
+    </div>
+  </form>
+  </div>
+</div>  
+
+<% } %>  

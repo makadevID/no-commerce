@@ -31,3 +31,23 @@ exports.categories = function(req, res, next) {
 			next();
 		});
 }
+
+exports.badge = function(req, res, next) {
+	const cart = req.session.cart;
+	req.session.cart_count = 0;
+	res.locals.wishlist_count = 0;
+
+	let qty = 0;
+	for (var i in cart) {
+		qty += parseInt(cart[i].quantity);
+	}
+
+	req.session.cart_count = qty;
+	res.locals.cart_count = qty;
+
+	if(req.user) {
+		res.locals.wishlist_count = req.user.wishlist.length;
+	}
+	
+	next();
+}
