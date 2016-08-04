@@ -46,10 +46,9 @@
   	.done(function(data) {
   		var suggestions = data.data;
 			var dom = '';
-
 			if(data.success) {
 				for (var i = 0; i < suggestions.length; i++) {
-					dom += '<li class="list-group-item"><a href="/products/"' + suggestions[i]._source.name + '>' + suggestions[i]._source.name + '</a></li>';
+					dom += '<li class="list-group-item"><a href="/products/' + suggestions[i]._source.slug + '">' + suggestions[i]._source.name + '</a></li>';
 					$('#suggest').html(dom);
 				}
 			} else {
