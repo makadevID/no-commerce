@@ -14,7 +14,7 @@
 		<h3 class="panel-title"><i class="fa fa-clock-o"></i> RECENT SEARCHES</h3>
 	</div>
 	<ul class="list-group">
-		<% for (var i = 0; i < searches.sort().length; i++) { %>
+		<% for (var i = 0; i < searches.length; i++) { %>
 			<li class="list-group-item"><a href="/search?q=<%= searches[i] %>"><%= searches[i] %></a></li>
 		<% } %>
 	</ul>

@@ -1,32 +1,46 @@
 const mongoose = require('mongoose');
-const mexp = require('mongoose-elasticsearch-xp');
+const mongoosastic = require('mongoosastic');
 const bcrypt = require('bcrypt-nodejs');
+const Category = require('./category').CategorySchema;
 
 const Schema = mongoose.Schema;
 
 const ProductSchema = new Schema({
-	category: {	type: Schema.Types.ObjectId, ref: 'Category' },
-	name: String,
-	slug: { type: String, unique: true, lowercase: true },
-	price: Number,
-	image: String
+	category: {
+		type: Schema.Types.ObjectId,
+		ref: 'Category',
+		es_schema: Category,
+		es_indexed: true,
+		es_select: 'name'
+	},
+	name: { type: String, es_indexed: true },
+	slug: { type: String, unique: true, lowercase: true, es_indexed: true },
+	price: { type: Number, es_indexed: true },
+	image: { type: String, es_indexed: true }
 });
 
-ProductSchema.plugin(mexp);
+ProductSchema.plugin(mongoosastic, {
+	populate: [
+		{ path: 'category', select: 'name slug' }
+	]
+});
 
 const Product = mongoose.model('Product', ProductSchema);
 
-Product.on('es-bulk-sent', function () {
-  console.log('Synchronize product starting.');
+/* Indexing an Existing collection */
+const stream = Product.synchronize();
+let count = 0;
+
+stream.on('data', function () {
+	count++;
 });
 
-Product.on('es-bulk-error', function (err) {
+stream.on('close', function(){
+  console.log('Indexed ' + count + ' documents!');
+});
+
+stream.on('error', function (err) {
   console.error(err);
 });
-
-Product.esSynchronize()
-  .then(function () {
-    console.log('Synchronize product finished.');
-  });
 
 module.exports = Product;

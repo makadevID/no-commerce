@@ -172,6 +172,7 @@ exports.removeProductFromWishlist = function(req, res, next) {
 exports.getWishlist = function(req, res, next) {
 	
 	if(!req.user.wishlist.length) {
+		req.flash('error', 'Wishlist is empty.');
 		return res.redirect('/');
 	}
 

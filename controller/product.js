@@ -57,27 +57,37 @@ exports.getSingleProduct = function(req, res, next) {
 exports.postSearch = function(req, res) {
 	req.session.searches = req.session.searches || [];
 	const search = req.session.searches;
+	const { q } = req.body;
 
-	req.session.searches.push(req.body.q);
-	return res.redirect(`/search?q=${req.body.q}`);
+
+	if(req.user) {		
+		const find = { _id: req.user._id };
+		const update = { $addToSet: { searches: q } };
+		const options = { upsert: true, new: true };
+
+		User.findOneAndUpdate(find, update, options, function(err, user) {
+				user.save();
+			});
+	} else {
+		req.session.searches.push(q);
+	}
+
+	return res.redirect(`/search?q=${q}`);
 }
 
 exports.getSearch = function(req, res, next) {
 	const { q } = req.query;
-	const searches = req.session.searches;
+	const searches = req.user ? req.user.searches : req.session.searches;
 
 	if(q) {
-		Product.esSearch({
+		Product.search({
 			query_string: {
 				query: q
 			} 
-		})
-		.then(function(results) {
+		}, 
+		function(err, results) {
 			const { hits } = results.hits;
 			return res.render('main/search-results', { q, hits, searches });
-		})
-		.catch(function(err) {
-			return next(err);
 		});
 	} else {
 		return res.render('main/search', { searches });
