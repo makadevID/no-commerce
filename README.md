@@ -15,7 +15,7 @@ a dead simple e-commerce playground build on top of NodeJS. 😉
 - [x] Signup & Login
 - [x] Add item to cart & remove item from cart
 - [x] Checkout with Stripe Payment
-- [ ] Live search
+- [x] Live search with Elasticsearch
 - [x] Payment history
 - [x] Save user recent searches
 - [x] Wishlist
