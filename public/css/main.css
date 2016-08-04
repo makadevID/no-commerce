@@ -272,3 +272,13 @@ ul.nav > li {
 input[name="quantity"] {
 	width: 40px;
 }
+
+.suggestion-wrapper {
+	position: relative;
+}
+
+.suggestions {
+	position: absolute;
+	width: 100%;
+	z-index: 99;
+}

@@ -93,3 +93,22 @@ exports.getSearch = function(req, res, next) {
 		return res.render('main/search', { searches });
 	}
 }
+
+exports.apiSearch = function(req, res) {
+	const { q } = req.body;
+	console.log(q);
+
+	if(q) {
+		Product.search({
+			query_string: {
+				query: q
+			} 
+		}, function(err, results) {
+			const { hits } = results.hits;
+			let success = hits.length ? true : false;
+			return res.json({ data: hits, success });
+		});
+	} else {
+		return res.json({ data: 'No query.', success: false });
+	}
+}

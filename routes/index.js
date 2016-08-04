@@ -44,5 +44,6 @@ router.post('/search', ProductController.postSearch);
 router.get('/categories/:slug', ProductController.getByCategory);
 router.get('/categories/:slug/page/:page', ProductController.getByCategory);
 router.get('/products/:slug', ProductController.getSingleProduct);
+router.post('/api/search', ProductController.apiSearch);
 
 module.exports = router;

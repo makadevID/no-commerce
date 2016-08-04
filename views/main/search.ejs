@@ -3,7 +3,13 @@
 <div class="panel panel-default">
 	<div class="panel-body">
 		<form action="/search" method="POST">
-			<div class="form-group"><input type="search" name="q" id="search" class="form-control" placeholder="Search..." autocomplete="off"></div>
+			<div class="form-group suggestion-wrapper">
+				<input type="search" name="q" id="search" class="form-control" placeholder="Search..." autocomplete="off">
+				<div class="suggestions">
+					<ul class="list-group" id="suggest">
+					</ul>
+				</div>
+			</div>
 		</form>
 	</div>
 </div>

@@ -34,4 +34,29 @@
     return false;
   });
 
+  $('#search').keyup(function() {
+  	var term = $(this).val();
+
+  	$.ajax({
+  		method: 'POST',
+  		url: '/api/search/',
+  		data: { q: term },
+  		dataType: 'json'
+  	})
+  	.done(function(data) {
+  		var suggestions = data.data;
+			var dom = '';
+
+			if(data.success) {
+				for (var i = 0; i < suggestions.length; i++) {
+					dom += '<li class="list-group-item"><a href="/products/"' + suggestions[i]._source.name + '>' + suggestions[i]._source.name + '</a></li>';
+					$('#suggest').html(dom);
+				}
+			} else {
+				dom = '<li class="list-group-item"><a href="#">No result found</a></li>';
+				$('#suggest').html(dom);
+			}
+  	});
+  });
+
 })(jQuery);
