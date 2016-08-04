@@ -1,7 +1,11 @@
 # NOCOMMERCE
-a dead simple e-commerce playground build on top of NodeJS. 😉
+Mobile-commerce playground built on top of NodeJS. 😉
 
 **IMPORTANT NOTE:** There is no admin page for this playground. I use fakerjs to seed the data.
+
+## DEMO
+
+[![NoCommerce Demo](http://i.imgur.com/YBoNSLs.png)](https://vimeo.com/177513079 "NoCommerce Demo - Click to Watch!")
 
 ## STACK USED
 - ExpressJS
