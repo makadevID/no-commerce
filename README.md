@@ -11,6 +11,15 @@ a dead simple e-commerce playground build on top of NodeJS. 😉
 - Elasticsearch
 - MongoDB
 
+## FEATURES
+- [x] Signup & Login
+- [x] Add item to cart & remove item from cart
+- [x] Checkout with Stripe Payment
+- [ ] Live search
+- [x] Payment history
+- [x] Save user recent searches
+- [x] Wishlist
+
 ## HOW TO INSTALL?
 
 1. clone this repo `git clone https://github.com/alfrcr/no-commerce.git`
